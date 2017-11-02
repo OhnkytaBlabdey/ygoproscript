@@ -1,0 +1,2 @@
+# ygoproscript
+脚本
