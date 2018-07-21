@@ -114,7 +114,7 @@ end
 			tb[i]=word
 			end
 			_aaa,_b,code,pl,owner,locstr,seq,posstr = table.unpack(tb)
-			
+			pl=1-pl
 			loc=_G[locstr]
 			pos=_G[posstr]
 		-- Debug.ShowHint(pl..code..loc..seq..pos)
