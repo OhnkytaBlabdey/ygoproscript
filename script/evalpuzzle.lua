@@ -13,14 +13,13 @@ function main()
 
 	local line_str=pz_file:read()
 	local ct=0
-	-- local sp=' , '
-	local tb={}
 	while(line_str) do
 		_,ct = line_str:gsub("Debug.AddCard","_")
 		if(ct==1)then
 			-- _aaa,_b,code,pl,owner,locstr,seq,posstr = line_str:gmatch("([^,]+)")
 			
 			print(line_str)
+			local tb={}
 			i=0
 			for word in line_str:gmatch("[%w_]+") do
 			i=i+1

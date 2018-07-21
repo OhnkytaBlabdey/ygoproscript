@@ -103,29 +103,20 @@ end
 	while(line_str) do
 		_,ct = line_str:gsub("Debug.AddCard","_")
 		if(ct==1)then
-		local para_table=line_str:split(",")
-
-		-- Debug.AddCard(102380,1,1,16,0,1)
-		-- AddCard(pl,code,loc,seq,pos)
-		-- showtable(para_table)
-
-		tmp=para_table[1]
-
-		local cd=''..tmp:sub(15,-1)
-		code=tonumber(cd)
-		-- cd="code"
-		pl=tonumber(para_table[2])
-		pl=1-pl
-		
-		loc=tonumber(para_table[4])
-		loc=_G[para_table[4]]
-		seq=tonumber(para_table[5])
-		tmp=para_table[6]
-		local tmpstrpos=tmp:sub(1,-2)
-		-- Debug.ShowHint(tmpstrpos) --... POS_FACEDOWN
-		pos = _G[tmpstrpos]
-		-- pos=tonumber(tmpstrpos)
-
+			-- Debug.AddCard(102380,1,1,16,0,1)
+			-- AddCard(pl,code,loc,seq,pos)
+			-- showtable(para_table)
+			
+			local tb={}
+			i=0
+			for word in line_str:gmatch("[%w_]+") do
+			i=i+1
+			tb[i]=word
+			end
+			_aaa,_b,code,pl,owner,locstr,seq,posstr = table.unpack(tb)
+			
+			loc=_G[locstr]
+			pos=_G[posstr]
 		-- Debug.ShowHint(pl..code..loc..seq..pos)
 		AddCard(pl,code,loc,seq,pos)
 		end
