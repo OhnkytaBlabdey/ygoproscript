@@ -155,6 +155,10 @@ end
 
 end
 
+-- function c101221614.con(e,tp,eg,ep,ev,re,r,rp)
+-- return Duel.GetTurnCount()>2
+-- end
+
 function showtable(t)
 if not t then 
 Debug.ShowHint("this is nil value")
@@ -227,9 +231,7 @@ e1:SetCode(EFFECT_DRAW_COUNT)
 e1:SetValue(draw)
 e1:SetCondition(function()
 return Duel.GetTurnCount()>2
-end
-)
-e1:SetReset(RESET_PHASE+PHASE_END)
+end)
 Duel.RegisterEffect(e1,pl)
 end
 
