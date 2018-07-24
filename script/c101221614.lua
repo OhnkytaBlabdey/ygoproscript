@@ -124,7 +124,10 @@ end
 			i=0
 			for word in line_str:gmatch("[%w]+") do
 			i=i+1
-			tb[i]=word
+			if i>2 then
+			num=tonumber(word)
+			end
+			tb[i]=num
 			end
 			_,__,pl,lp,hand,draw=table.unpack(tb)
 			pl=1-pl
@@ -198,11 +201,16 @@ return c_a
 end
 
 function SetPlayerInfo(pl,lp,hand,draw)
-Duel.SetLP(pl,lp)
+	Duel.SetLP(pl,lp)
 
-Duel.Draw(pl,hand,0x400)
+if hand>0 then
+	Duel.Draw(pl,hand,0x400)
+end
 
-tp=0
+if draw<1 then
+	return
+end
+
 --
 local e1=Effect.GlobalEffect()
 e1:SetType(EFFECT_TYPE_FIELD)
@@ -211,7 +219,7 @@ e1:SetTargetRange(1,0)
 e1:SetCode(EFFECT_DRAW_COUNT)
 e1:SetValue(draw)
 -- e1:SetReset(RESET_PHASE+PHASE_END)
-Duel.RegisterEffect(e1,tp)
+Duel.RegisterEffect(e1,pl)
 end
 
 
