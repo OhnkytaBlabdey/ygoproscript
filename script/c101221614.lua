@@ -19,6 +19,8 @@ function c101221614.initial_effect(c)
 	Duel.RegisterEffect(e5,1)
 end
 
+c101221614.turn_limit=false
+
 function c101221614.clear()
 local cards=Duel.GetFieldGroup(0,0xff,0xff)
 Duel.Remove(cards,0xa,0x400)
@@ -128,14 +130,17 @@ end
 			pl=1-pl
 			SetPlayerInfo(pl,lp,hand,draw)
 			-- print(_,__,pl,lp,hand,draw)
-		else
+		elseif line_str == "aux.BeginPuzzle()" then
+			c101221614.turn_limit=true
 		end
 		line_str=pz_file:read()
 	end
 	pz_file:close()
 elseif Duel.GetTurnCount()==2 then
+if c101221614.turn_limit ==true then
 Duel.SetLP(1,0)
 -- [turn limit]
+end
 end
 
 end
@@ -207,10 +212,6 @@ e1:SetCode(EFFECT_DRAW_COUNT)
 e1:SetValue(draw)
 -- e1:SetReset(RESET_PHASE+PHASE_END)
 Duel.RegisterEffect(e1,tp)
-
-
-
-
 end
 
 
