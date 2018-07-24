@@ -125,6 +125,8 @@ end
 			tb[i]=word
 			end
 			_,__,pl,lp,hand,draw=table.unpack(tb)
+			pl=1-pl
+			SetPlayerInfo(pl,lp,hand,draw)
 			-- print(_,__,pl,lp,hand,draw)
 		else
 		end
@@ -189,4 +191,26 @@ end
 Duel.MoveSequence(c_a,seq)
 return c_a
 end
+
+function SetPlayerInfo(pl,lp,hand,draw)
+Duel.SetLP(pl,lp)
+
+Duel.Draw(pl,hand,0x400)
+
+tp=0
+--
+local e1=Effect.GlobalEffect()
+e1:SetType(EFFECT_TYPE_FIELD)
+e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+e1:SetTargetRange(1,0)
+e1:SetCode(EFFECT_DRAW_COUNT)
+e1:SetValue(draw)
+-- e1:SetReset(RESET_PHASE+PHASE_END)
+Duel.RegisterEffect(e1,tp)
+
+
+
+
+end
+
 
