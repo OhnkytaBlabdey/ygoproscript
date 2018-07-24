@@ -28,10 +28,16 @@ function main()
 			i=0
 			for word in line_str:gmatch("[%w]+") do
 			i=i+1
-			tb[i]=word
+			if i>2 then
+			num=tonumber(word)
+			tb[i-2]=num
 			end
-			_,__,pl,lp,hand,draw=table.unpack(tb)
-			print(_,__,pl,lp,hand,draw)
+			end
+			-- print(table.unpack(tb))
+			pl,lp,hand,draw=table.unpack(tb)
+			pl = 1 - pl
+			-- SetPlayerInfo(pl,lp,hand,draw)
+			print(pl,lp,hand,draw)
 		else
 			print('[not matched]\t',line_str)
 		end

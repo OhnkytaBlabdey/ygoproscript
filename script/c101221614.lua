@@ -126,13 +126,13 @@ end
 			i=i+1
 			if i>2 then
 			num=tonumber(word)
+			tb[i-2]=num
 			end
-			tb[i]=num
 			end
-			_,__,pl,lp,hand,draw=table.unpack(tb)
-			pl=1-pl
+			pl,lp,hand,draw=table.unpack(tb)
+			pl = 1 - pl
 			SetPlayerInfo(pl,lp,hand,draw)
-			-- print(_,__,pl,lp,hand,draw)
+			-- print(pl,lp,hand,draw)
 		elseif line_str == "aux.BeginPuzzle()" then
 			c101221614.turn_limit=true
 		end
