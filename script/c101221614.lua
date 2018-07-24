@@ -96,7 +96,7 @@ if not os then
 os=require("os")
 end
 	--[read xx.lua as puzzle file]
-	local pz_file = io.open("single/xx.lua","r+")
+	local pz_file = io.open("single/xx.lua","r")
 	if not pz_file then 
 	return 
 	end
@@ -110,7 +110,7 @@ end
 			
 			local tb={}
 			i=0
-			for word in line_str:gmatch("[%w_]+") do
+			for word in line_str:gmatch("[%w%s_=]+") do
 			i=i+1
 			tb[i]=word
 			end
@@ -123,7 +123,7 @@ end
 		elseif line_str:match("Debug.SetPlayerInfo") then
 			local tb={}
 			i=0
-			for word in line_str:gmatch("[%w]+") do
+			for word in line_str:gmatch("[%w%s]+") do
 			i=i+1
 			if i>2 then
 			num=tonumber(word)
