@@ -99,14 +99,9 @@ end
 	end
 
 	local line_str=pz_file:read()
-	local ct=0
 	while(line_str) do
-		_,ct = line_str:gsub("Debug.AddCard","_")
-		if(ct==1)then
-			-- Debug.AddCard(102380,1,1,16,0,1)
-			-- AddCard(pl,code,loc,seq,pos)
-			-- showtable(para_table)
-			
+		if(line_str:match("Debug.AddCard"))then
+			-- _aaa,_b,code,pl,owner,locstr,seq,posstr = line_str:gmatch("([^,]+)")
 			local tb={}
 			i=0
 			for word in line_str:gmatch("[%w_]+") do
@@ -114,11 +109,18 @@ end
 			tb[i]=word
 			end
 			_aaa,_b,code,pl,owner,locstr,seq,posstr = table.unpack(tb)
-			pl=1-pl
-			loc=_G[locstr]
-			pos=_G[posstr]
-		-- Debug.ShowHint(pl..code..loc..seq..pos)
-		AddCard(pl,code,loc,seq,pos)
+			print(_aaa,_b,code,pl,owner,locstr,seq,posstr)
+		elseif line_str:match("Debug.SetPlayerInfo") then
+			local tb={}
+			i=0
+			for word in line_str:gmatch("[%w]+") do
+			i=i+1
+			tb[i]=word
+			end
+			_,__,pl,lp,hand,draw=table.unpack(tb)
+			print(_,__,pl,lp,hand,draw)
+		else
+			print('[not matched]\t',line_str)
 		end
 		line_str=pz_file:read()
 	end
@@ -182,16 +184,3 @@ Duel.MoveSequence(c_a,seq)
 return c_a
 end
 
---字符串分割函数
---传入字符串和分隔符，返回分割后的table
-function string.split(str, delimiter)
-	if str==nil or str=='' or delimiter==nil then
-		return nil
-	end
-	
-	local result = {}
-	for match in (str..delimiter):gmatch("(.-)"..delimiter) do
-		table.insert(result, match)
-	end
-	return result
-end
